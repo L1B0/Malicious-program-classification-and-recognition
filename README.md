@@ -1,8 +1,8 @@
 # Malicious-program-classification-and-recognition
 
-## How to use it
+## 1. How to use it
 
-### 1. prepare your malicious program and rename its parent dic to 'malicious'
+### 1.1 prepare your malicious program and rename its parent dic to 'malicious'
 
 ```powershell
 PS F:\大四上\小学期\test> ls
@@ -33,7 +33,7 @@ d-----         2019/9/4     10:22                trojan.pws
 d-----         2019/9/4     10:23                variant.graftor
 ```
 
-### 2. import this module
+### 1.2 import this module
 
 ```python3
 >>> from maliciousClassify import batchprocess as bp
@@ -41,7 +41,7 @@ d-----         2019/9/4     10:23                variant.graftor
 >>> from maliciousClassify import count
 ```
 
-### batchprocess
+#### batchprocess
 
 * Disassemble a batch of executable files
 
@@ -76,7 +76,7 @@ d-----         2019/9/4     10:27                asm
 d-----         2019/9/4     10:22                malicious
 ```
 
-### pre
+#### pre
 
 * transfer the asm file to word file
 
@@ -112,7 +112,7 @@ d-----         2019/9/4     10:27                asm
 d-----         2019/9/4     10:22                malicious
 ```
 
-### count
+#### count
 
 * count the number of assembly instructions in asm files
 
