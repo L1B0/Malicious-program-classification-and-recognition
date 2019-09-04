@@ -2,6 +2,7 @@ import json
 import os
 
 def save(dict,path):
+    dict = sorted(zip(dict.values(),dict.keys()),reverse=True)
     with open(path,'w') as f:
         json.dump(dict,f)
 
