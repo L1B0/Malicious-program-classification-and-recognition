@@ -63,6 +63,19 @@ pass Virusshare_00ba9539ed686d7544c871504288fecf.asm~
 pass Virusshare_00ba9539ed686d7544c871504288fecf.asm
 ```
 
+```powershell
+PS F:\大四上\小学期\test> ls
+
+
+    目录: F:\大四上\小学期\test
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----         2019/9/4     10:27                asm
+d-----         2019/9/4     10:22                malicious
+```
+
 ### pre
 
 * transfer the asm file to word file
@@ -85,6 +98,20 @@ Virusshare_00d2c93edbab74d9f933f6a3244c5f23.asm
 Virusshare_00d34e3574bff764d22ff87686c561f5.asm
 ```
 
+```powershell
+PS F:\大四上\小学期\test> ls
+
+
+    目录: F:\大四上\小学期\test
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----         2019/9/4     10:39                ans
+d-----         2019/9/4     10:27                asm
+d-----         2019/9/4     10:22                malicious
+```
+
 ### count
 
 * count the number of assembly instructions in asm files
@@ -105,4 +132,22 @@ Virusshare_00cb353b9e71db4bd3c557a609f3cac2.asm.ans
 Virusshare_00cfbc769a3be6a1526df8b172107ccb.asm.ans
 Virusshare_00d2c93edbab74d9f933f6a3244c5f23.asm.ans
 Virusshare_00d34e3574bff764d22ff87686c561f5.asm.ans
+```
+
+```powershell
+PS F:\大四上\小学期\test> ls
+
+
+    目录: F:\大四上\小学期\test
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----         2019/9/4     10:39                ans
+d-----         2019/9/4     10:27                asm
+d-----         2019/9/4     10:22                malicious
+-a----         2019/9/4     10:43           1226 count.txt
+
+PS F:\大四上\小学期\test> cat .\count.txt
+{"push": 15260, "mov": 11175, "call": 2558, "jmp": 2310, ",": 3540, "inc": 4529, "dec": 4144, "pop": 10730, "sbb": 237, "adc": 290, "add": 974, "sub": 932, "lds": 46, "and": 600, "or": 245, "retn": 1359, ".": 1061, "aaa": 49, "xor": 807, "repne": 33, "scasb": 36, "not": 28, "lea": 1413, "test": 814, "jz": 724, "cmp": 912, "jl": 141, "jge": 66, "movzx": 99, "setnl": 11, "leave": 212, "jb": 82, "stosd": 281, "stosw": 78, "stosb": 30, "jnz": 527, "rep": 192, "shr": 40, "jle": 94, "jbe": 133, "movsx": 10, "movsb": 19, "jnb": 29, "shl": 25, "js": 26, "ja": 112, "nop": 106, "jo": 70, "jno": 74, "cld": 12, "jg": 92, "imul": 11, "pusha": 74, "popa": 77, "in": 19, "clc": 5, "fmul": 2, "xchg": 24, "jns": 14, "fisub": 1, "rcr": 6, "loop": 4, "out": 7, "cli": 14, "aam": 5, "retf": 15, "sahf": 5, "fld": 5, "daa": 5, "lodsb": 7, "fadd": 4, "cmpsb": 9, "loope": 3, "stc": 4, "sal": 3, "idiv": 2, "wait": 6, "lahf": 5, "fldenv": 1, "aad": 4, "fcom": 1, "iret": 10, "cmc": 1, "int": 1, "aas": 8, "fsub": 1, "jecxz": 1, "ficom": 1, "ror": 3, "setnle": 1, "setnz": 3, "neg": 1, "sti": 4, "movsw": 1, "rol": 2, "into": 8, "lock": 2, "jp": 1, "jnp": 1, "xlat": 5, "loopne": 2, "hlt": 2, "fcmovnb": 1, "std": 6, "fidiv": 1, "ficomp": 1}
 ```
