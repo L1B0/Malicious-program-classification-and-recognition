@@ -19,6 +19,8 @@ def count(filepath,dict):
                     dict[word]=1
 
 def start(now_pwd):
+
+	print("Start count~")
 	path = now_pwd + "//ans"
 	number = 0
 	dict={}

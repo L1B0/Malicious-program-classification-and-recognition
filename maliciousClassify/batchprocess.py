@@ -15,6 +15,7 @@ def myinput(now_pwd):
 
 def start(ida_path, now_pwd):
 	
+	print("Start disasm~")
 	num = 0
 	#parent_dic = "F:\\大四上\\小学期\\final_example_class\\final_example_class"
 	malicious_dic, asm_dic = myinput(now_pwd)
