@@ -67,6 +67,8 @@ pass Virusshare_00ba9539ed686d7544c871504288fecf.asm
 
 * transfer the asm file to word file
 
+> pre.start(asm_parent_path)
+
 ```python3
 >>> from maliciousClassify import pre
 >>> pre.start('F:\\大四上\\小学期\\test')
@@ -86,6 +88,8 @@ Virusshare_00d34e3574bff764d22ff87686c561f5.asm
 ### count
 
 * count the number of assembly instructions in asm files
+
+> count.start(ans_parent_path)
 
 ```python3
 >>> from maliciousClassify import count
