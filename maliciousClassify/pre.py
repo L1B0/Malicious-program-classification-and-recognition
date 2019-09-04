@@ -1,11 +1,12 @@
 import os
 import re
+from tqdm import tqdm
 
 def pre(now_pwd, root,filename,cmd):
     loc=r'^loc'
     substart=r'^sub.*proc'
     end=r'.*endp'
-    print(filename)
+    #print(filename)
     r = str(root).split("\\")
     destdir = now_pwd + "//ans//" + r[-1]
     if not os.path.exists(destdir):
@@ -48,12 +49,9 @@ def start(now_pwd):
 		# os.system("pause")
 	
 	path= now_pwd + '//asm'
-	number=0
+
 	for (root, dirs, files) in os.walk(path):
-		for filename in files:
-			number+=1
-			number%=100
-			if number==0:
-				print(filename)
+		for filename in tqdm(files,desc=root.split('\\')[-1]):
+
 			pre(now_pwd, root,filename,cmd)
 

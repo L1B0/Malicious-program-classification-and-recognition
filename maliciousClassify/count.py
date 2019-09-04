@@ -1,5 +1,6 @@
 import json
 import os
+from tqdm import tqdm
 
 def save(dict,path):
     dict = sorted(zip(dict.values(),dict.keys()),reverse=True)
@@ -22,8 +23,8 @@ def start(now_pwd):
 	number = 0
 	dict={}
 	for (root, dirs, files) in os.walk(path):
-		for filename in files:
-			print(filename)
-				
+		for filename in tqdm(files,desc=root.split('\\')[-1]):
+			#print(filename)
+			
 			count(os.path.join(root,filename),dict)
 		save(dict,now_pwd + '//count.txt')
