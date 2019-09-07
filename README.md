@@ -156,6 +156,6 @@ getApiList.start('C:/Program Files (x86)/IDA/ida.exe','F:/大四上/小学期/te
 
 ```python3
 from TFIDF import calcTF
-getApiList.start('F:/大四上/小学期/test/api')
+calcTF.start('F:/大四上/小学期/test/api')
 ```
 
