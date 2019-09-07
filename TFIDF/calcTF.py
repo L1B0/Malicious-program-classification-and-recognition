@@ -14,12 +14,12 @@ def start(now_pwd):
 	top = []
 	for filename in os.listdir(now_pwd):
 	
-		child_dic = now_pwd + '\\' + filename
+		child_dic = now_pwd + '/' + filename
 		
 		for badfile in os.listdir(child_dic):
 			
 			print("Read %s"%badfile)
-			badfile_dic = child_dic + '\\' + badfile
+			badfile_dic = child_dic + '/' + badfile
 			
 			a = eval(open(badfile_dic,'r').read())
 			if a == []:
@@ -84,20 +84,20 @@ def start(now_pwd):
 	num = 0
 	for filename in os.listdir(now_pwd):
 	
-		child_dic = now_pwd + '\\' + filename
-		target_dic = '\\'.join(now_pwd.split('\\')[:-1]) + '\\functimes\\' + filename
+		child_dic = now_pwd + '/' + filename
+		target_dic = '/'.join(now_pwd.split('/')[:-1]) + '/functimes/' + filename
 		if os.path.exists(target_dic) == False:
 			os.makedirs(target_dic)
 			
 		for badfile in os.listdir(child_dic):
 			
 			#print("Read %s"%badfile)
-			badfile_dic = child_dic + '\\' + badfile
+			badfile_dic = child_dic + '/' + badfile
 			
 			a = eval(open(badfile_dic,'r').read())
 			#print(a)
 			if a == []:
-				np.savetxt(target_dic+'\\'+'.'.join(badfile.split('.')[:-1]) + '.vec',v,fmt='%d')
+				np.savetxt(target_dic+'/'+'.'.join(badfile.split('.')[:-1]) + '.vec',v,fmt='%d')
 				continue
 			num += 1
 			temp_v = np.zeros((wei+1), dtype=np.int)
@@ -114,9 +114,9 @@ def start(now_pwd):
 			if f:
 				n += 1
 				print("Get %d %s"%(n,badfile))
-			np.savetxt(target_dic+'\\'+'.'.join(badfile.split('.')[:-1]) + '.vec',temp_v,fmt='%d')		
+			np.savetxt(target_dic+'/'+'.'.join(badfile.split('.')[:-1]) + '.vec',temp_v,fmt='%d')		
 	#print(num)			
 	
 if __name__ == "__main__":
 
-	start('F:\\大四上\\小学期\\final_example_class\\api')
+	start('F:/大四上/小学期/final_example_class/api')

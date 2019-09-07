@@ -35,10 +35,10 @@ for i in xrange(0, nimps):
 #print imports_list
 
 
-#path = 'F:\\大四上\\小学期\\api\\' + GetInputFilePath().split('\\')[-2] + '\\' + '.'.join(GetInputFile().split('.')[:-1]) + '.api'
+#path = 'F:/大四上/小学期/api/' + GetInputFilePath().split('/')[-2] + '/' + '.'.join(GetInputFile().split('.')[:-1]) + '.api'
 
-path = 'F:\\大四上\\小学期\\final_example_class\\api\\' + GetInputFilePath().split('\\')[-2] + '\\' + GetInputFile() + '.api'
-#path = 'F:\\大四上\\小学期\\api\\' + '.'.join(GetInputFile().split('.')[:-1]) + '.api'
+path = 'F:/大四上/小学期/final_example_class/api/' + GetInputFilePath().split('/')[-2] + '/' + GetInputFile() + '.api'
+#path = 'F:/大四上/小学期/api/' + '.'.join(GetInputFile().split('.')[:-1]) + '.api'
 
 with open(path.decode('UTF-8'),'w') as f:
 	f.write(str(imports_list))
