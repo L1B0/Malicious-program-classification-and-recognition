@@ -9,6 +9,7 @@ import os
 import re
 import numpy as np
 import tensorflow as tf
+
 from resnet import ResNet
 
 
@@ -40,17 +41,19 @@ def set_config():
 	K.set_session(session)
 
 
-def load_training_data(path):
+def load_training_data(path, top100_path):
 	"""
-		Load training data from files
-		:return: samples and labels
-		"""
+	Load training data from files
+	:param path: the path of training dataset
+	:param top100_path: the path of top100.txt
+	:return: samples and labels
+	"""
 	X_train = []
 	y_train = []
 
-	with open('../data/top100.txt', 'r') as f:
+	with open(top100_path, 'r') as f:
 		top100 = f.read()
-		pattern = re.compile(r'\"(.*?)\"')
+		pattern = re.compile(r'[\"\'](.*?)[\"\']')
 		top100_result = pattern.findall(top100)
 
 	# Load training data
@@ -81,17 +84,19 @@ def load_training_data(path):
 	return np.array(X_train), np.array(y_train)
 
 
-def load_test_data(path):
+def load_test_data(path, top100_path):
 	"""
 	Load test data from files
-	:return: samples and labels
+	:param path: the path of test dataset
+	:param top100_path: the path of top100.txt
+	:return: samples, labels and names of all samples
 	"""
 	X_test = []
 	y_test = []
 	file_names = []
 	category_names = []
 
-	with open('../data/top100.txt', 'r') as f:
+	with open(top100_path, 'r') as f:
 		top100 = f.read()
 		pattern = re.compile(r'\"(.*?)\"')
 		top100_result = pattern.findall(top100)
@@ -104,7 +109,7 @@ def load_test_data(path):
 		category_names.append(dir)
 		files = os.listdir(path + dir)
 		for file in files:
-			# Load word2vec model
+			# Vectorize .ans file
 			word_model = word2vec.Word2Vec.load(path + dir + "/" + file)
 
 			# Convert files into matrices using top100.txt
@@ -125,13 +130,20 @@ def load_test_data(path):
 			# 	output_image += 1
 			X_test.append(np.reshape(matrix, (100, 100, 1)))
 			y_test.append(cnt)
-			file_names.append(file)
+			file_names.append(file.strip('.asm.ans.model'))
 		cnt += 1
 
 	return np.array(X_test), np.array(y_test), file_names, category_names
 
 
-def train():
+def train_resnet(training_path, test_path, top_100_path, model_path):
+	"""
+	Train ResNet model and save it
+	:param training_path: the path of training dataset
+	:param test_path: the path of test dataset
+	:param top_100_path: the path of top100.txt
+	:param model_path: the path of ResNet model
+	"""
 	set_config()
 
 	# Hyperparameters
@@ -142,10 +154,8 @@ def train():
 	img_rows, img_cols = 100, 100
 	img_channels = 1
 
-	training_path = "../train/"
-	test_path = "../test/"
-	X_train, y_train = load_training_data(training_path)
-	X_test, y_test, file_names, category_names = load_test_data(test_path)
+	X_train, y_train = load_training_data(training_path, top_100_path)
+	X_test, y_test, file_names, category_names = load_test_data(test_path, top_100_path)
 
 	X_train = X_train.astype('float32')
 	X_test = X_test.astype('float32')
@@ -157,16 +167,20 @@ def train():
 
 	model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-	metrics = Metrics()
-	model.fit(X_train, y_train, epochs=epoch, batch_size=batch_size, validation_data=(X_test, y_test),
-	          callbacks=[metrics])
+	# metrics = Metrics()
+	# model.fit(X_train, y_train, epochs=epoch, batch_size=batch_size, validation_data=(X_test, y_test),
+	#           callbacks=[metrics])
+	model.fit(X_train, y_train, epochs=epoch, batch_size=batch_size)
 
 	accuracy = model.evaluate(X_test, y_test, batch_size=batch_size)
+	print(accuracy)
 
-	save_model(model, "../MCD_ResNet_model")
+	if not os.path.exists(model_path):
+		os.mkdir(model_path)
+	save_model(model, model_path + 'ResNet_model.h5')
 
 	return accuracy
 
 
 if __name__ == "__main__":
-	train()
+	train_resnet("../train/", "../test/", "../model/")
