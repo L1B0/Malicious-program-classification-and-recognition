@@ -21,12 +21,12 @@ def count(filepath,dict):
 def start(now_pwd):
 
 	print("Start count~")
-	path = now_pwd + "//ans"
+	path = now_pwd + "/ans"
 	number = 0
 	dict={}
 	for (root, dirs, files) in os.walk(path):
-		for filename in tqdm(files,desc=root.split('\\')[-1]):
+		for filename in tqdm(files,desc=root.split('/')[-1]):
 			#print(filename)
 			
 			count(os.path.join(root,filename),dict)
-		save(dict,now_pwd + '//count.txt')
+		save(dict,now_pwd + '/count.txt')

@@ -7,8 +7,8 @@ def pre(now_pwd, root,filename,cmd):
     substart=r'^sub.*proc'
     end=r'.*endp'
     #print(filename)
-    r = str(root).split("\\")
-    destdir = now_pwd + "//ans//" + r[-1]
+    r = str(root).split("/")
+    destdir = now_pwd + "/ans/" + r[-1]
     if not os.path.exists(destdir):
         os.makedirs(destdir)
 
@@ -50,10 +50,10 @@ def start(now_pwd):
 		# print(cmd)
 		# os.system("pause")
 	
-	path= now_pwd + '//asm'
+	path= now_pwd
 
 	for (root, dirs, files) in os.walk(path):
-		for filename in tqdm(files,desc=root.split('\\')[-1]):
+		for filename in tqdm(files,desc=root.split('/')[-1]):
 
 			pre(now_pwd, root,filename,cmd)
 

@@ -9,5 +9,6 @@ from tqdm import tqdm
 def start(ida_path,now_pwd):
 
 	bp.start(ida_path,now_pwd)
-	pre.start(now_pwd)
-	count.start(now_pwd)
+	asm_dic = '/'.join(now_pwd.split('/')[:-1]) + '/asm'
+	pre.start(asm_dic)
+	count.start('/'.join(now_pwd.split('/')[:-1]))
