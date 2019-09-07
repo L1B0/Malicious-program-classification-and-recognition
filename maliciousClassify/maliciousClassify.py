@@ -10,5 +10,10 @@ def start(ida_path,now_pwd):
 
 	bp.start(ida_path,now_pwd)
 	asm_dic = '/'.join(now_pwd.split('/')[:-1]) + '/asm'
+	if os.path.exists(asm_dic) == False:
+		os.makedirs(asm_dic)
 	pre.start(asm_dic)
-	count.start('/'.join(now_pwd.split('/')[:-1]))
+	ans_dic = '/'.join(now_pwd.split('/')[:-1]) + '/ans'
+	if os.path.exists(ans_dic) == False:
+		os.makedirs(ans_dic)
+	count.start(ans_dic)

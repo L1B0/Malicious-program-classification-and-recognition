@@ -21,7 +21,7 @@ def count(filepath,dict):
 def start(now_pwd):
 
 	print("Start count~")
-	path = now_pwd + "/ans"
+	path = now_pwd
 	number = 0
 	dict={}
 	for (root, dirs, files) in os.walk(path):
