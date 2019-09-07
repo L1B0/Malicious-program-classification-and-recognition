@@ -133,8 +133,29 @@ PS F:\大四上\小学期\test> cat .\count.txt
 ### 1.3 import TFIDF module
 
 ```python3
-
+from TFIDF import tfidf
+from TFIDF import getApiList
+from TFIDF import calcTF
 ```
 
 #### tfidf
+
+```python3
+from TFIDF import tfidf
+tfidf.start('C:/Program Files (x86)/IDA/ida.exe','F:/大四上/小学期/test/malicious')
+```
+
+#### getApiList
+
+```python3
+from TFIDF import getApiList
+getApiList.start('C:/Program Files (x86)/IDA/ida.exe','F:/大四上/小学期/test/malicious')
+```
+
+#### calcTF
+
+```python3
+from TFIDF import calcTF
+getApiList.start('F:/大四上/小学期/test/api')
+```
 
