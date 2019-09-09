@@ -2,7 +2,6 @@
 #!/usr/bin/python3
 
 import os
-from TFIDF import tfidf
 from TFIDF import getApiList
 from TFIDF import calcTF
 from tqdm import tqdm
