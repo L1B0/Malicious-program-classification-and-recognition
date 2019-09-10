@@ -16,7 +16,7 @@ def start(ida_path,now_pwd):
 
 	# asm2word
 	pre.start(asm_dic)
- 	if os.path.exists(ans_dic) == False:
+	if os.path.exists(ans_dic) == False:
 		os.makedirs(ans_dic)
 	ans_dic = '/'.join(now_pwd.split('/')[:-1]) + '/ans'
 
