@@ -14,11 +14,11 @@
 
 ## 3. 使用说明
 
-###　3.1 训练模型
+### 3.1 训练模型
 
 在windows系统下准备好恶意程序的样本集，例如下图
 
-![win-ls-pe](./image/win-ls-pe.png)
+![win-ls-pe](./image/win-ls-pe.png) qq222223z
 
 #### 3.1.1 word2vec预处理 - 反汇编
 
@@ -41,7 +41,9 @@ PE文件-文件名为家族名
 
  在文件夹`TF-IDF`同层目录下打开命令行，例子如下
 
+![win-tf-example](./image/win-tf-example.png)
 
+执行结束后，脚本会在恶意样本文件夹同层目录下生成一个名为`api`的文件夹，存储恶意样本中提取的api，一个名为`functimes`的文件夹，存储样本中的api向量，以及一个名为`topapi.txt`的文件，存储关键程度高的api名字。
 
 ### 3.2 样本分类识别
 

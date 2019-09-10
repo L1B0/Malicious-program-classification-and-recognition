@@ -81,6 +81,7 @@ def start(now_pwd):
 		print(top)
 	#print(top)
 	#np.savetxt('top',top)
+        np.savetxt('/'.join(now_pwd.split('/')[:-1])+'/topapi.txt',all_top)
 	
 	print(len(all_top),all_top)
 	# 生成每个样本的向量矩阵
