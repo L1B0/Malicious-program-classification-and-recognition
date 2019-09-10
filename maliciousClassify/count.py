@@ -5,7 +5,7 @@ from tqdm import tqdm
 def save(dict,path):
     dict = sorted(zip(dict.values(),dict.keys()),reverse=True)
     with open(path,'w') as f:
-        json.dump(dict[:100],f)
+        json.dump(dict,f)
 
 
 def count(filepath,dict):
@@ -29,4 +29,4 @@ def start(now_pwd):
 			#print(filename)
 			
 			count(os.path.join(root,filename),dict)
-		save(dict,now_pwd + '/count.txt')
+		save(dict,now_pwd + '/top100.txt')
