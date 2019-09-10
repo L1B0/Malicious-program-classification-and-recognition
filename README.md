@@ -12,6 +12,41 @@
 
 软件：IDA Pro & idapython(windows)， viper(linux)
 
+## 3. 使用说明
+
+###　3.1 训练模型
+
+在windows系统下准备好恶意程序的样本集，例如下图
+
+![win-ls-pe](./image/win-ls-pe.png)
+
+#### 3.1.1 word2vec预处理 - 反汇编
+
+在文件夹`word2vec`同层目录下打开命令行，例子如下
+
+![win-word2vec](./image/win-word2vec.png)
+
+当执行结束后，脚本会在恶意样本文件夹同层目录下生成一个名为`asm`的文件夹，存储恶意样本生成的汇编代码，一个名为`ans`的文件夹，存储asm文件转化的由汇编指令组成的语句文件，以及一个文件`top100.txt`，存有按出现次数从多到少排序的汇编指令列表。
+
+```shell
+# l1b0 @ l1b0-PC in /media/l1b0/软件工程_日常/大四上/小学期 [13:51:53] 
+$ ls
+ans
+asm
+top100.txt
+PE文件-文件名为家族名
+```
+
+#### 3.1.2 TF-IDF预处理
+
+ 在文件夹`TF-IDF`同层目录下打开命令行，例子如下
+
+
+
+### 3.2 样本分类识别
+
+
+
 ## 1. How to use it
 
 ### 1.1 prepare your malicious program 

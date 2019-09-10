@@ -29,4 +29,4 @@ def start(now_pwd):
 			#print(filename)
 			
 			count(os.path.join(root,filename),dict)
-		save(dict,now_pwd + '/top100.txt')
+		save(dict,'/'.join(now_pwd.split('/')[:-1]) + '/top100.txt')
