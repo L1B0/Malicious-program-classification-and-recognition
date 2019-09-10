@@ -18,13 +18,13 @@ def classify_program(ans_path, func_path, model_path):
 	"""
 	# Use word2vec
 	files = os.listdir(ans_path)
-	top_100_path = '/'.join(ans_path.split('/')[0:-2]) + '/data/top100.txt'
+	top_100_path = '/'.join(ans_path.split('/')[:-2]) + '/top100.txt'
 	with open(top_100_path, 'r') as f:
 		top100 = f.read()
 		pattern = re.compile(r'[\"\'](.*?)[\"\']')
 		top100_result = pattern.findall(top100)
 
-	with open('/'.join(ans_path.split('/')[:-3])+'/answer.txt', 'w') as f:
+	with open('/'.join(ans_path.split('/')[:-2])+'/answer.txt', 'w') as f:
 		f.write('FileName\t\t\tCategory\n')
 		for file in files:
 			image_predict = [0] * 6
@@ -81,7 +81,7 @@ def classify_program(ans_path, func_path, model_path):
 
 			y_predict = int(np.argmax(np.asarray(merged_predict)))
 
-			f.write(file + '\t\t\t' + category_list[y_predict] c+ '\n')
+			f.write(file + '\t\t\t' + category_list[y_predict] + '\n')
 
 
 def evaluate(file_path, image_test_path, func_test_path, model_path):

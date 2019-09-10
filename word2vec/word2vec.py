@@ -22,3 +22,17 @@ def start(ida_path,now_pwd):
 
 	# count Top100
 	count.start(ans_dic)
+
+def predict(ida_path,now_pwd):
+
+	# 反汇编 
+	asm_dic = '/'.join(now_pwd.split('/')[:-1]) + '/asm'
+	if os.path.exists(asm_dic) == False:
+		os.makedirs(asm_dic)
+	bp.start(ida_path,now_pwd)
+
+	# asm2word
+	pre.start(asm_dic)
+	if os.path.exists(ans_dic) == False:
+		os.makedirs(ans_dic)
+	ans_dic = '/'.join(now_pwd.split('/')[:-1]) + '/ans'

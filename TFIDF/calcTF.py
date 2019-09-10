@@ -1,4 +1,4 @@
-﻿# coding=UTF-8
+# coding=UTF-8
 #!/usr/bin/python3
 
 import os
@@ -81,7 +81,8 @@ def start(now_pwd):
 		print(top)
 	#print(top)
 	#np.savetxt('top',top)
-        np.savetxt('/'.join(now_pwd.split('/')[:-1])+'/topapi.txt',all_top)
+	with open('/'.join(now_pwd.split('/')[:-1])+'/topapi.txt','w') as f:
+		f.write(str(all_top))
 	
 	print(len(all_top),all_top)
 	# 生成每个样本的向量矩阵
@@ -125,7 +126,45 @@ def start(now_pwd):
 				print("Get %d %s"%(n,badfile))
 			np.savetxt(target_dic+'/'+'.'.join(badfile.split('.')[:-1]) + '.vec',temp_v,fmt='%d')		
 	#print(num)			
+
+def predict(now_pwd,topapi_path):
+
+	all_top = eval(open(topapi_path,'r').read())
+	for filename in os.listdir(now_pwd):
 	
+		child_dic = now_pwd + '/' + filename
+		target_dic = '/'.join(now_pwd.split('/')[:-1]) + '/functimes/' + filename
+		if os.path.exists(target_dic) == False:
+			os.makedirs(target_dic)
+			
+		for badfile in os.listdir(child_dic):
+			
+			#print("Read %s"%badfile)
+			badfile_dic = child_dic + '/' + badfile
+			
+			a = eval(open(badfile_dic,'r').read())
+			#print(a)
+			if a == []:
+				np.savetxt(target_dic+'/'+'.'.join(badfile.split('.')[:-1]) + '.vec',v,fmt='%d')
+				continue
+			num += 1
+			temp_v = np.zeros((wei+1), dtype=np.int)
+			temp_v[wei] = 1
+			f = 0
+			for i in range(len(all_top)):
+
+				if all_top[i] in a:
+					f = 1
+					#print("get it.")
+					temp_v[i] = 1
+
+			#print(temp_v)
+			if f:
+				n += 1
+				print("Get %d %s"%(n,badfile))
+			np.savetxt(target_dic+'/'+'.'.join(badfile.split('.')[:-1]) + '.vec',temp_v,fmt='%d')		
+	#print(num)
+
 if __name__ == "__main__":
 
 	start('F:/大四上/小学期/final_example_class/api')
