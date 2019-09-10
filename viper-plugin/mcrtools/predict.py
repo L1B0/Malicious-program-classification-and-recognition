@@ -4,9 +4,9 @@ import numpy as np
 import os
 import re
 
-from resnet import train
-from tf_idf import load_data
-from preprocessing.word2vec import my_word2vec
+from .resnet import train
+from .tf_idf import load_data
+from .preprocessing.word2vec import my_word2vec
 
 
 def classify_program(ans_path, func_path, model_path):
@@ -24,11 +24,11 @@ def classify_program(ans_path, func_path, model_path):
 		pattern = re.compile(r'[\"\'](.*?)[\"\']')
 		top100_result = pattern.findall(top100)
 
-	with open('answer.txt', 'w') as f:
+	with open('/'.join(ans_path.split('/')[:-3])+'/answer.txt', 'w') as f:
 		f.write('FileName\t\t\tCategory\n')
 		for file in files:
-			image_predict = [0] * 11
-			vec_predict = [0] * 11
+			image_predict = [0] * 6
+			vec_predict = [0] * 6
 
 			'''--------ResNet Model--------'''
 			word_model = my_word2vec(ans_path + file, 1, 5)
@@ -42,7 +42,7 @@ def classify_program(ans_path, func_path, model_path):
 						matrix[i] = np.zeros(100)
 				matrix = (matrix - matrix.min()) / (matrix.max() - matrix.min()) * 255
 				matrix = matrix.astype(np.uint8)
-				matrix = matrix.reshape(100, 100, 1)
+				matrix = matrix.reshape(1, 100, 100, 1)
 
 				# Load ResNet model
 				resnet_model = load_model(model_path + 'ResNet_model.h5')
@@ -64,21 +64,24 @@ def classify_program(ans_path, func_path, model_path):
 			# Load DNN model
 			dnn_model = load_model(model_path + 'tf_idf_model.h5')
 
-			if not np.all(vec[0:-1] == 0):
-				vec_predict = dnn_model.predict(vec)
+			if not np.all(vec[:-1] == 0):
+				#print(vec,len(vec))
+				vec_predict = dnn_model.predict(np.reshape(vec[0:-1], (1, len(vec[:-1]))))
 
 			'''--------Merged Model--------'''
 			resnet_weight = 0.2
 			dnn_weight = 0.8
 
+			image_predict = np.asarray(image_predict)
+			vec_predict = np.asarray(vec_predict)
+			#print(image_predict,vec_predict)
 			merged_predict = image_predict * resnet_weight + vec_predict * dnn_weight
 
-			category_list = ['BackDoor', 'Constructor', 'Email-Worm', 'Exploit', 'HackTool', 'Hoax', 'Net-Worm',
-			                 'Rootkit', 'Trojan-Banker', 'Trojan-Clicker', 'Worm']
+			category_list = ['backdoor.farfli', 'rootkit.heur', 'trojan.downloader', 'trojan.generic', 'trojan.pws', 'variant.graftor']
 
 			y_predict = int(np.argmax(np.asarray(merged_predict)))
 
-			f.write(file + '\t\t\t' + category_list[y_predict])
+			f.write(file + '\t\t\t' + category_list[y_predict] c+ '\n')
 
 
 def evaluate(file_path, image_test_path, func_test_path, model_path):
@@ -102,8 +105,8 @@ def evaluate(file_path, image_test_path, func_test_path, model_path):
 	accuracy = 0
 	sum = 0
 	y = []
-	y_category = [0] * 11
-	y_category_predict = [0] * 11
+	y_category = [0] * 6
+	y_category_predict = [0] * 6
 
 	# Get all file names
 	file_names = []
@@ -129,14 +132,14 @@ def evaluate(file_path, image_test_path, func_test_path, model_path):
 		else:
 			vec = None
 
-		merged_predict = [0] * 11
+		merged_predict = [0] * 6
 		if image is not None and vec is not None:
 			image_predict = resnet_model.predict(image)
 			vec_predict = dnn_model.predict(vec)
 
 			resnet_weight = 0.1
 			dnn_weight = 0.9
-
+                    
 			merged_predict = image_predict * resnet_weight + vec_predict * dnn_weight
 			y_category[y[i]] += 1
 			sum += 1
@@ -161,7 +164,7 @@ def evaluate(file_path, image_test_path, func_test_path, model_path):
 
 	accuracy /= sum
 	print('accuracy: ', accuracy)
-	for i in range(11):
+	for i in range(6):
 		print('%s \t %.2f' % (category_name[i], y_category_predict[i] / y_category[i]))
 
 

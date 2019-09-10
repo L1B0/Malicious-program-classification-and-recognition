@@ -10,7 +10,7 @@ import re
 import numpy as np
 import tensorflow as tf
 
-from resnet import ResNet
+from .ResNet import ResNetBuilder
 
 
 class Metrics(Callback):
@@ -54,7 +54,7 @@ def load_training_data(path, top100_path):
 	with open(top100_path, 'r') as f:
 		top100 = f.read()
 		pattern = re.compile(r'[\"\'](.*?)[\"\']')
-		top100_result = pattern.findall(top100)
+		top100_result = pattern.findall(top100)[:100]
 
 	# Load training data
 	dirs = os.listdir(path)
@@ -148,7 +148,7 @@ def train_resnet(training_path, test_path, top_100_path, model_path):
 
 	# Hyperparameters
 	batch_size = 64
-	class_number = 11
+	class_number = 6
 	epoch = 20
 
 	img_rows, img_cols = 100, 100
@@ -163,7 +163,7 @@ def train_resnet(training_path, test_path, top_100_path, model_path):
 	y_train = np_utils.to_categorical(y_train, class_number)
 	y_test = np_utils.to_categorical(y_test, class_number)
 
-	model = ResNet.ResNetBuilder.build_resnet_18((img_channels, img_rows, img_cols), class_number)
+	model = ResNetBuilder.build_resnet_18((img_channels, img_rows, img_cols), class_number)
 
 	model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 

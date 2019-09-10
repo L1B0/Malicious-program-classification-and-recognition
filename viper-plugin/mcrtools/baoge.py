@@ -1,8 +1,8 @@
-from preprocessing.word2vec import batch_vectorize_asm
-from preprocessing.generate_dataset import generate_dataset
-from resnet.train import train_resnet
-from tf_idf import train_dnn
-from predict import classify_program
+from .preprocessing.word2vec import batch_vectorize_asm
+from .preprocessing.generate_dataset import generate_dataset
+from .resnet.train import train_resnet
+from .tf_idf import train_dnn
+from .predict import classify_program
 
 
 def train(ans_path, func_path):
@@ -39,13 +39,13 @@ def train(ans_path, func_path):
 	train_dnn(dnn_training_path, dnn_test_path, model_path)
 
 
-def predict(ans_path, func_path):
+def predict(ans_path, func_path, model_path):
 	"""
 	Predict the macilious programs and save predictions as a .txt file
 	:param ans_path: the path of .asm.ans files
 	:param func_path: the path of .vec files
 	"""
-	classify_program(ans_path, func_path, "./model/")
+	classify_program(ans_path, func_path, model_path)
 
 
 if __name__ == "__main__":

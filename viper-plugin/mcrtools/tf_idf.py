@@ -6,7 +6,7 @@ from keras.utils import np_utils
 
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
 
-from preprocessing.generate_dataset import generate_dataset
+from .preprocessing.generate_dataset import generate_dataset
 
 import os
 import numpy as np
@@ -18,7 +18,10 @@ def load_data(path):
 	x = []
 	y = []
 	file_names = []
+	vec_len = 0
 	dirs = os.listdir(path)
+	cat_len = len(dirs)
+	#print("cate: %d"%cat_len)
 	cnt = 0
 	for category in dirs:
 		files = os.listdir(path + category)
@@ -30,6 +33,7 @@ def load_data(path):
 					vec.append(int(a.strip()))
 					a = f.readline()
 			vec = np.asarray(vec)
+			vec_len = len(vec[:-1])
 			if not np.all(vec[0:-1] == 0):
 				x.append(vec[0:-1])
 				y.append(cnt)
@@ -37,28 +41,28 @@ def load_data(path):
 
 		cnt += 1
 
-	return np.asarray(x), np.asarray(y), file_names
+	return np.asarray(x), np.asarray(y), file_names, vec_len, cat_len
 
 
-def create_model(layer1, layer2, layer3, dropout):
+def create_model(layer1, layer2, layer3, dropout, vec_len, cat_len):
 	# DNN Model
 	model = Sequential()
-	model.add(Dense(layer1, input_dim=300, activation='relu'))
+	model.add(Dense(layer1, input_dim=vec_len, activation='relu'))
 	model.add(Dense(layer2, activation='relu'))
 	model.add(Dense(layer3, activation='relu'))
 	model.add(Dropout(dropout))
-	model.add(Dense(11, activation='softmax'))
+	model.add(Dense(cat_len, activation='softmax'))
 
 	model.compile(loss='categorical_crossentropy', optimizer="adam", metrics=['accuracy'])
 
 	return model
 
 
-def train(X_train, y_train, X_test, y_test, model_path):
-	y_train = np_utils.to_categorical(y_train, 11)
-	y_test = np_utils.to_categorical(y_test, 11)
+def train(X_train, y_train, X_test, y_test, model_path, vec_len, cat_len):
+	y_train = np_utils.to_categorical(y_train, cat_len)
+	y_test = np_utils.to_categorical(y_test, cat_len)
 
-	model = create_model(500, 750, 250, 0.4)
+	model = create_model(500, 750, 250, 0.4, vec_len, cat_len)
 	# model = KerasClassifier(build_fn=create_model, batch_size=1, verbose=1)
 
 	'''
@@ -89,15 +93,15 @@ def train(X_train, y_train, X_test, y_test, model_path):
 
 
 def cross_validation(x, y):
-	model = create_model(500, 750, 250, 0.4)
+	model = create_model(500, 750, 250, 0.4, vec_len, cat_len)
 	skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=10)
 	cv = []
 
 	for train_index, test_index in skf.split(x, y):
 		X_train, X_test = x[train_index], x[test_index]
 		y_train, y_test = y[train_index], y[test_index]
-		y_train = np_utils.to_categorical(y_train, 11)
-		y_test = np_utils.to_categorical(y_test, 11)
+		y_train = np_utils.to_categorical(y_train, cat_len)
+		y_test = np_utils.to_categorical(y_test, cat_len)
 
 		model.fit(X_train, y_train, batch_size=28, epochs=100)
 
@@ -117,9 +121,9 @@ def train_dnn(training_path, test_path, model_path):
 	:param model_path: the path of DNN model
 	"""
 
-	X_train, y_train, _ = load_data(training_path)
-	X_test, y_test, _ = load_data(test_path)
-	train(X_train, y_train, X_test, y_test, model_path)
+	X_train, y_train, _, vec_len, cat_len = load_data(training_path)
+	X_test, y_test, _, vec_len, cat_len = load_data(test_path)
+	train(X_train, y_train, X_test, y_test, model_path, vec_len, cat_len)
 
 
 if __name__ == "__main__":
