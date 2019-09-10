@@ -1,5 +1,17 @@
 # Malicious-program-classification-and-recognition
 
+## 1. 前言
+
+本插件实现了基于word2vec和TF-IDF算法的恶意程序分类识别。
+
+## 2. 依赖  
+
+语言：Python3
+
+系统：Windows & Linux
+
+软件：IDA Pro & idapython(windows)， viper(linux)
+
 ## 1. How to use it
 
 ### 1.1 prepare your malicious program 
