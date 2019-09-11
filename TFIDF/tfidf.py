@@ -12,7 +12,7 @@ def start(ida_path,idapy_path,now_pwd):
 	api_dic = '/'.join(now_pwd.split('/')[:-1]) + '/api'
 	if os.path.exists(api_dic) == False:
 		os.makedirs(api_dic)
-	getApiList.start(ida_path,now_pwd)
+	getApiList.start(ida_path,idapy_path,now_pwd)
 	
 	# calculate TF-IDF
 	func_dic = '/'.join(now_pwd.split('/')[:-1]) + '/functimes'
