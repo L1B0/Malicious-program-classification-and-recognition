@@ -7,7 +7,7 @@ import shutil
 import subprocess
 from tqdm import tqdm
 
-def start(ida_path, now_pwd):
+def start(ida_path, idapy_path, now_pwd):
 	
 	for filename in os.listdir(now_pwd):
 	
@@ -32,7 +32,9 @@ def start(ida_path, now_pwd):
 			#print(check)
 			if os.path.exists(check):
 				continue
-			cmd=[ida_path,'-B','-S"./ida.py"',badfile_dic]
+			print(badfile_dic)
+			cmd=[ida_path,'-B','-S%s'%idapy_path,badfile_dic]
+			print(cmd)
 			a = subprocess.Popen(cmd)
 			time.sleep(1)
 			'''

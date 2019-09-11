@@ -130,6 +130,8 @@ def start(now_pwd):
 def predict(now_pwd,topapi_path):
 
 	all_top = eval(open(topapi_path,'r').read())
+	wei = len(all_top)
+	n = 0
 	for filename in os.listdir(now_pwd):
 	
 		child_dic = now_pwd + '/' + filename
@@ -147,7 +149,7 @@ def predict(now_pwd,topapi_path):
 			if a == []:
 				np.savetxt(target_dic+'/'+'.'.join(badfile.split('.')[:-1]) + '.vec',v,fmt='%d')
 				continue
-			num += 1
+			#num += 1
 			temp_v = np.zeros((wei+1), dtype=np.int)
 			temp_v[wei] = 1
 			f = 0

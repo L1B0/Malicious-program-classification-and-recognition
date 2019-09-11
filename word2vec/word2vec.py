@@ -15,11 +15,11 @@ def start(ida_path,now_pwd):
 	bp.start(ida_path,now_pwd)
 
 	# asm2word
-	pre.start(asm_dic)
+	ans_dic = '/'.join(now_pwd.split('/')[:-1]) + '/ans'
 	if os.path.exists(ans_dic) == False:
 		os.makedirs(ans_dic)
-	ans_dic = '/'.join(now_pwd.split('/')[:-1]) + '/ans'
-
+	pre.start('/'.join(now_pwd.split('/')[:-1]))
+	
 	# count Top100
 	count.start(ans_dic)
 
@@ -32,7 +32,9 @@ def predict(ida_path,now_pwd):
 	bp.start(ida_path,now_pwd)
 
 	# asm2word
-	pre.start(asm_dic)
+	ans_dic = '/'.join(now_pwd.split('/')[:-1]) + '/ans'
 	if os.path.exists(ans_dic) == False:
 		os.makedirs(ans_dic)
-	ans_dic = '/'.join(now_pwd.split('/')[:-1]) + '/ans'
+	pre.start('/'.join(now_pwd.split('/')[:-1]))
+	
+	

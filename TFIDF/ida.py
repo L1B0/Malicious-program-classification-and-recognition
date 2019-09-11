@@ -7,6 +7,9 @@ from idc import *
 
 imports_list = []
 
+with open("F:\\test",'w') as f:
+	f.write('qwe')
+	
 def imp_cb(ea, name, ord):
        if not name:
            #print "%08x: ord#%d" % (ea, ord)
@@ -37,7 +40,7 @@ for i in xrange(0, nimps):
 
 #path = 'F:/大四上/小学期/api/' + GetInputFilePath().split('/')[-2] + '/' + '.'.join(GetInputFile().split('.')[:-1]) + '.api'
 
-path = '/'.join(GetInputFilePath().split('/')[:-3]) + '/api' + GetInputFilePath().split('/')[-2] + '/' + GetInputFile() + '.api'
+path = '\\'.join(GetInputFilePath().split('\\')[:-3]) + '\\api\\' + GetInputFilePath().split('\\')[-2] + '\\' + GetInputFile() + '.api'
 #path = 'F:/大四上/小学期/api/' + '.'.join(GetInputFile().split('.')[:-1]) + '.api'
 
 with open(path.decode('UTF-8'),'w') as f:

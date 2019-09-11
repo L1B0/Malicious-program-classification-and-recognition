@@ -7,17 +7,17 @@ def pre(now_pwd, root,filename,cmd):
     substart=r'^sub.*proc'
     end=r'.*endp'
     #print(filename)
-    r = str(root).split("/")
-    destdir = now_pwd + "/ans/" + r[-1]
+    #r = str(root).split('/')
+    destdir = now_pwd + "/ans/" + root
     if not os.path.exists(destdir):
         os.makedirs(destdir)
 
-    if os.path.exists(destdir + '/' + filename + ".ans"):
+    if os.path.exists(destdir + '/' + filename + '.ans'):
         # print(filename+"已处理\n")
         return
 
     flag=False#是否能直接接逗号或者句号
-    with open(os.path.join(root, filename),'r',encoding='utf-8') as f,open(destdir + '/' + filename + ".ans",'w+',encoding='utf-8') as d:
+    with open(now_pwd+'/asm/'+root+'/'+filename,'r',encoding='utf-8') as f,open(destdir + '/' + filename + ".ans",'w+',encoding='utf-8') as d:
         for line in f.readlines():
             #print(line)
             index=line.find(";")
@@ -50,10 +50,11 @@ def start(now_pwd):
 		# print(cmd)
 		# os.system("pause")
 	
-	path= now_pwd
+	path= now_pwd + '/asm'
 
-	for (root, dirs, files) in os.walk(path):
-		for filename in tqdm(files,desc=root.split('/')[-1]):
-
-			pre(now_pwd, root,filename,cmd)
+	for file in os.listdir(path):
+		for filename in tqdm(os.listdir(path+'/'+file),desc=file):
+			#print(root)
+			#print(file,filename)
+			pre(now_pwd, file,filename,cmd)
 

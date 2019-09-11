@@ -31,13 +31,18 @@ def start(ida_path, now_pwd):
 
 			badfile_dic = child_dic + '/' + badfile
 			
-			temp = badfile.split('.')[:-1]
-			temp_asm = '.'.join(temp) + '.asm'
-			temp_dic = target_dic + '/' + temp_asm
+			if '.' in badfile:
+				temp = badfile.split('.')[:-1]
+				temp_asm = '.'.join(temp) + '.asm'
+				temp_dic = target_dic + '/' + temp_asm
+			else:
+				temp_asm = badfile + '.asm'
+				temp_dic = target_dic + '/' + temp_asm
+				
 			if os.path.exists(temp_dic):
 				#print("pass %s~"%temp_asm)
 				continue
-			
+			#print(temp_dic)
 			num += 1
 			#print("[%d]create %s.asm"%(num,badfile))
 			cmd=[ida_path,'-B',badfile_dic]
