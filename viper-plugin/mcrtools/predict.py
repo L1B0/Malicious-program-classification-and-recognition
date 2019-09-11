@@ -80,7 +80,7 @@ def classify_program(ans_path, func_path, model_path):
 			category_list = ['backdoor.farfli', 'rootkit.heur', 'trojan.downloader', 'trojan.generic', 'trojan.pws', 'variant.graftor']
 
 			y_predict = int(np.argmax(np.asarray(merged_predict)))
-
+			print(category_list[y_predict])
 			f.write(file + '\t\t\t' + category_list[y_predict] + '\n')
 
 
