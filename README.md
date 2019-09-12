@@ -1,5 +1,11 @@
 # Malicious-program-classification-and-recognition
 
+## 0. 文件说明
+
+`word2vec`和`TF-IDF`文件夹均封装成python模块。
+
+`viper-plugin`内有`mcrtools`文件夹和`mcr.py`，将这两个文件放入`viper/viper/modules`即可。
+
 ## 1. 前言
 
 本插件实现了基于word2vec和TF-IDF算法的恶意程序分类识别。
